@@ -41,10 +41,10 @@ Google แคชไฟล์ที่ publish ไว้ราว 5 นาที 
 
 ## Deploy บน GitHub Pages (GitHub Actions)
 
-ใช้ workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — push เข้า `master` เมื่อไหร่ เว็บอัปเดตเอง
+ใช้ workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — push เข้า `main` เมื่อไหร่ เว็บอัปเดตเอง
 
 1. repo → **Settings → Pages** → Source: **GitHub Actions**
-2. push โค้ดขึ้น `master` (หรือ `main`)
+2. push โค้ดขึ้น `main`
 3. ดูความคืบหน้าที่แท็บ **Actions** (ราว 1 นาที) เสร็จแล้วลิงก์อยู่ในงาน `deploy`
    → `https://<username>.github.io/<repo>/`
 
