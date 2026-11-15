@@ -1,0 +1,6 @@
+# ตั้งค่าเฉพาะเครื่อง
+.claude/
+.vscode/
+.DS_Store
+Thumbs.db
+_site/

@@ -1,0 +1,46 @@
+# Deploy ขึ้น GitHub Pages ทุกครั้งที่ push เข้า main
+# ตั้งค่า repo: Settings → Pages → Source = "GitHub Actions"
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # กดรันเองได้จากแท็บ Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# ให้ deploy ทีละรอบ ถ้ามี push ใหม่ระหว่างทาง รอบเก่าจะไม่ถูกยกเลิกกลางคัน
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # เอาเฉพาะไฟล์ของเว็บขึ้นไป (ไม่เอา README, .github, ไฟล์ตั้งค่าเครื่อง)
+      - name: Collect site files
+        run: |
+          mkdir _site
+          cp -r index.html styles.css app.js config.js assets .nojekyll _site/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
